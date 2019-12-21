@@ -1,0 +1,6 @@
+com/tcms/tenant/repository/TenantRepository.class
+com/tcms/tenant/controller/TenantController.class
+com/tcms/tenant/payload/TenantRequest.class
+com/tcms/tenant/model/audit/UserAudit.class
+com/tcms/tenant/model/audit/DateAudit.class
+com/tcms/tenant/service/impl/TenantServiceImpl.class
