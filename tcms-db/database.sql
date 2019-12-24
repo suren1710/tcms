@@ -43,14 +43,14 @@ CREATE TABLE IF NOT EXISTS `tcms`.`tenant` (
   `modified_at` DATETIME NULL DEFAULT now(),
   `created_by` BIGINT NULL,
   `modified_by` BIGINT NULL,
-  `subscrption_id` BIGINT NOT NULL,
-  `subscription_end_on` DATETIME NOT NULL,
+  `subscription_id` BIGINT NOT NULL,
+  `subscription_ends_on` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
   UNIQUE INDEX `domain_name_UNIQUE` (`domain_name` ASC) VISIBLE,
-  INDEX `subscription_id_idx` (`subscrption_id` ASC) VISIBLE,
+  INDEX `subscription_id_idx` (`subscription_id` ASC) VISIBLE,
   CONSTRAINT `subscription_id`
-    FOREIGN KEY (`subscrption_id`)
+    FOREIGN KEY (`subscription_id`)
     REFERENCES `tcms`.`subscription` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `tcms`.`user_type`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tcms`.`user_type` (
+CREATE TABLE IF NOT EXISTS `tcms`.`login_type` (
   `type_id` INT NOT NULL AUTO_INCREMENT,
   `type_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`type_id`))
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `tcms`.`user` (
   `email_address` NVARCHAR(320) NOT NULL,
   `first_name` VARCHAR(255) NULL,
   `last_name` VARCHAR(255) NULL,
-  `password_sha_256` BINARY(32) NOT NULL,
+  `password_sha_256` VARCHAR(255) NOT NULL,
   `tenant_id` BIGINT NOT NULL,
   `status` VARCHAR(45) NOT NULL,
   `created_at` DATETIME NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `tcms`.`user` (
     ON UPDATE NO ACTION,
   CONSTRAINT `type_id`
     FOREIGN KEY (`type_id`)
-    REFERENCES `tcms`.`user_type` (`type_id`)
+    REFERENCES `tcms`.`login_type` (`type_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

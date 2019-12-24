@@ -2,7 +2,14 @@ package com.tcms.tenant.model;
 
 import com.tcms.tenant.model.audit.UserAudit;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
@@ -27,12 +34,23 @@ public class Tenant extends UserAudit {
     private String domainName;
 
     @NotBlank
-    @Column(name = "subscrption_id")
+    @Column(name = "subscription_id")
     private Long subscriptionId;
 
     @NotBlank
     @Column(name = "subscription_end_on")
     private Date subscriptionEndsOn;
+
+    public Tenant(@NotBlank final String name,
+                  @NotBlank final String domainName,
+                  @NotBlank final Long subscriptionId,
+                  @NotBlank final Date subscriptionEndsOn) {
+
+        this.name = name;
+        this.domainName = domainName;
+        this.subscriptionId = subscriptionId;
+        this.subscriptionEndsOn = subscriptionEndsOn;
+    }
 
     public Long getId() {
 
@@ -55,6 +73,7 @@ public class Tenant extends UserAudit {
     }
 
     public Date getSubscriptionEndsOn() {
+
         return subscriptionEndsOn;
     }
 
@@ -79,6 +98,8 @@ public class Tenant extends UserAudit {
     }
 
     public void setSubscriptionEndsOn(Date subscriptionEndsOn) {
+
         this.subscriptionEndsOn = subscriptionEndsOn;
     }
+
 }
